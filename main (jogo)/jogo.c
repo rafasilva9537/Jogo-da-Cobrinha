@@ -1,6 +1,8 @@
+//usar system("clear") para limpar o cmd toda execução
+//urban peguin: site para printar letras com cores no cmd
 #include <stdio.h>
 #include <string.h>
-#include <dos.h>
+#include <dos.h> //mudar biblioteca <dos.h> para <unistd.h> no linux
 #include <stdlib.h>
 
 int main() {
@@ -30,6 +32,7 @@ int main() {
 
 
     do {          
+        system("cls"); //mudar comando "cls" para "clear" no linux
         //imprimir mapa
         for(int i = 0; i < 6; i++) {
             printf("%s\n", mapa[i]);
@@ -37,7 +40,7 @@ int main() {
         
         //comando de movimento
         char tecla = 'd';
-        //scanf(" %c", &tecla);
+        scanf(" %c", &tecla);
         
         //movimentação
         switch(tecla){

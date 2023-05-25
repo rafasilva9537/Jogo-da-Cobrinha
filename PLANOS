@@ -1,0 +1,15 @@
+ESSENCIAIS:
+1. Colocar mapa na memória do jogo (tirar do arquivo txt e colocar na matriz do próprio código). Será necessário excluir e alterar as funções que manuseiam arquivos
+
+2. Implementar alguma forma de pular o scanf para criar um jogo dinamico
+
+3. Criar uma comando para colocar o console em modo raw input
+
+4. Tela menu
+
+5. CRIAR alguma struct para o jogo (OBRIGATÓRIO). Pode ser feito da cobra e do mapa.
+
+OPCIONAIS:
+1. Colorir a cobrinha e a comida no cmd (ou o jogo com um todo)
+
+2. SOM? (É POSSÍVEL? SEM USO DE BIBLIOTECAS EXTERNAS?)
