@@ -1,76 +1,76 @@
 //usar system("clear") para limpar o cmd toda execução
 //urban peguin: site para printar letras com cores no cmd
 #include <stdio.h>
-#include <string.h>
 #include <dos.h> //mudar biblioteca <dos.h> para <unistd.h> no linux
 #include <stdlib.h>
-#include <conio.h>
+
+#define LINHAS 9
+#define COLUNAS 32+1
 
 int main() {
-    //abrindo arquivo
-    FILE* arquivo_mapa;
-    arquivo_mapa = fopen("mapa.txt", "r");
+    //criando mapa
+    char mapa[LINHAS][COLUNAS];
 
-    //testando se arquivo foi aberto
-    if(arquivo_mapa) {
-        printf("Arquivo aberto com sucesso!\n");
-    }
-    else {
-        printf("Falha em tentar acessar arquivo!\n");
-    }
-
-    char mapa[6][14+1];
-    for(int i = 0; i < 6; i++) {
-        fscanf(arquivo_mapa, "%s", mapa[i]); //caso fosse uma variável, seria colocado &linha1_do_mapa, assim como em scanf(), que representa o endereço de memória, entretando, arrays já são a representação de um endereço, logo o & não é necessário
-    }
+    sprintf(mapa[0], ":==============================:");
+    sprintf(mapa[1], "|------------------------------|");
+    sprintf(mapa[2], "|------------------------------|");
+    sprintf(mapa[3], "|------------------------------|");
+    sprintf(mapa[4], "|------------------------------|");
+    sprintf(mapa[5], "|------------------------------|");
+    sprintf(mapa[6], "|-----*------------------------|");
+    sprintf(mapa[7], "|------------------------------|");
+    sprintf(mapa[8], ":==============================:");
 
     //criando personagem
     char cobra = '@';
     //coordenadas iniciais do personagem
-    int x = 3;
-    int y = 5;
+    int x = 5;
+    int y = 3;
     mapa[x][y] = cobra;   
 
 
     do {          
         system("cls"); //mudar comando "cls" para "clear" no linux
         //imprimir mapa
-        for(int i = 0; i < 6; i++) {
+        for(int i = 0; i < 9; i++) {
             printf("%s\n", mapa[i]);
         }
         
         //comando de movimento
-        char tecla = 'd';
+        char tecla;
         scanf(" %c", &tecla);
-        
+
         //movimentação
         switch(tecla){
             case 'w':
-                mapa[x][y] = '-';
+                mapa[x][y] = '-'; //apagar rastro da cobra
                 x--;
-                mapa[x][y] = '@';
                 break;
             case 's':
                 mapa[x][y] = '-';
                 x++;
-                mapa[x][y] = '@';
                 break;
             case 'a':
                 mapa[x][y] = '-';
                 y--;
-                mapa[x][y] = '@';
                 break;
             case 'd':
                 mapa[x][y] = '-';
                 y++;
-                mapa[x][y] = '@';
                 break;
+            default:
+                continue;
         }
-        usleep(1000000);
+        if(mapa[x][y]=='=' || mapa[x][y]=='|'){
+            printf("Colidiu com a parede!\n");
+            break;
+        } 
+        mapa[x][y] = '@';
+
+        //usleep(1000000);
     } while(1);
 
-
-    fclose(arquivo_mapa);
+    printf("Fim de jogo! Tente novamente");
 
     return 0;
 }
