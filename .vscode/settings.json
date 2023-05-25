@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "conio.h": "c",
-        "unistd.h": "c"
-    }
-}
