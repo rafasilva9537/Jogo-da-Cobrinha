@@ -2,7 +2,7 @@
 //urban peguin: site para printar letras com cores no cmd
 #include <stdio.h>
 #include <string.h>
-#include <dos.h> //mudar biblioteca <dos.h> para <unistd.h> no linux
+#include <unistd.h> //mudar biblioteca <dos.h> para <unistd.h> no linux
 #include <stdlib.h>
 
 int main() {
