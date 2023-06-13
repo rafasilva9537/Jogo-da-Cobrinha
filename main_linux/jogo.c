@@ -70,7 +70,7 @@ int main() {
         } 
         mapa[x][y] = '@';
 
-        //usleep(1000000);
+        usleep(1000000);
     } while(1);
 
     printf("Fim de jogo! Tente novamente");
