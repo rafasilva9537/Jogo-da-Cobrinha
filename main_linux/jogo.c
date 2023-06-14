@@ -8,7 +8,7 @@
 
 #define LINHAS 10
 #define COLUNAS 32+1
-#define TAMANHO 20
+#define TAMANHO 210
 
 struct posicao {
   int x;
@@ -40,6 +40,7 @@ int main() {
   //criando cobra
   posicao cobra[TAMANHO];
   //coordenadas iniciais do personagem
+  int tamanho_atual = 2; //serve para criar corpo da cobra em loops de forma automática
   cobra[0].x = 5;
   cobra[0].y = 3;
   cobra[1].x = 5;
@@ -62,8 +63,9 @@ int main() {
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw); //Aplica atributos modificados da struct raw no terminal. TCSAFLUSH especifica quando aplicar as mudanças
 
 
-  do {  
+  do {
     system("clear");
+    
     //imprimir mapa
     for(int i = 0; i < LINHAS; i++) {
         printf("%s\n", mapa[i]);
@@ -73,52 +75,49 @@ int main() {
     char tecla;
     read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
 
+    
     //movimentação
     switch(tecla){
       case 'w':
-        mapa[cobra[2].x][cobra[2].y] = '-';
-        cobra[2].x = cobra[1].x;
-        cobra[2].y = cobra[1].y;
-        
-        mapa[cobra[1].x][cobra[1].y] = '-';
-        cobra[1].x = cobra[0].x;
-        cobra[1].y = cobra[0].y;
+        for(int i = tamanho_atual; i > 0; i--){
+          mapa[cobra[i].x][cobra[i].y] = '-';
+          int j = i-1;
+          cobra[i].x = cobra[j].x; //i= 5,4,3...
+          cobra[i].y = cobra[j].y; //j= 4,3,2...
+        }
         
         mapa[cobra[0].x][cobra[0].y] = '-'; //apagar rastro da cobra
         cobra[0].x--;
         break;
       case 's':
-        mapa[cobra[2].x][cobra[2].y] = '-';
-        cobra[2].x = cobra[1].x;
-        cobra[2].y = cobra[1].y;
-        
-        mapa[cobra[1].x][cobra[1].y] = '-';
-        cobra[1].x = cobra[0].x;
-        cobra[1].y = cobra[0].y;
+        for(int i = tamanho_atual; i > 0; i--){
+          mapa[cobra[i].x][cobra[i].y] = '-';
+          int j = i-1;
+          cobra[i].x = cobra[j].x;
+          cobra[i].y = cobra[j].y;
+        }
         
         mapa[cobra[0].x][cobra[0].y] = '-';
         cobra[0].x++;
         break;
       case 'a':
-        mapa[cobra[2].x][cobra[2].y] = '-';
-        cobra[2].x = cobra[1].x;
-        cobra[2].y = cobra[1].y;
-        
-        mapa[cobra[1].x][cobra[1].y] = '-';
-        cobra[1].x = cobra[0].x;
-        cobra[1].y = cobra[0].y;
+        for(int i = tamanho_atual; i > 0; i--){
+          mapa[cobra[i].x][cobra[i].y] = '-';
+          int j = i-1;
+          cobra[i].x = cobra[j].x;
+          cobra[i].y = cobra[j].y;
+        }
         
         mapa[cobra[0].x][cobra[0].y] = '-';
         cobra[0].y--;
         break;
       case 'd':
-        mapa[cobra[2].x][cobra[2].y] = '-';
-        cobra[2].x = cobra[1].x;
-        cobra[2].y = cobra[1].y;
-        
-        mapa[cobra[1].x][cobra[1].y] = '-';
-        cobra[1].x = cobra[0].x;
-        cobra[1].y = cobra[0].y;
+        for(int i = tamanho_atual; i > 0; i--){
+          mapa[cobra[i].x][cobra[i].y] = '-';
+          int j = i-1;
+          cobra[i].x = cobra[j].x;
+          cobra[i].y = cobra[j].y;
+        }
         
         mapa[cobra[0].x][cobra[0].y] = '-';
         cobra[0].y++;
@@ -126,22 +125,40 @@ int main() {
       default:
         continue;
     }
-    if(mapa[cobra[0].x][cobra[0].y]=='=' || mapa[cobra[0].x][cobra[0].y]=='|'){
-        printf("Colidiu com a parede!\n");
-        break;
-    } 
-    mapa[fruta.x][fruta.y] = '*';
-    mapa[cobra[0].x][cobra[0].y] = '@';
-    mapa[cobra[1].x][cobra[1].y] = 'X';
-    mapa[cobra[2].x][cobra[2].y] = 'X';
+    //comer fruta
+    if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
+      fruta.x = 3;
+      fruta.y = 15;
+      tamanho_atual++;
+    }
 
-    usleep(100000);
+    //colisão com parede (precisa estar antes de printar corpo)
+    if(mapa[cobra[0].x][cobra[0].y]=='=' || mapa[cobra[0].x][cobra[0].y]=='|'){
+      printf("Você colidiu com a parede!\n");
+      break;
+    } 
+    
+    mapa[fruta.x][fruta.y] = '*'; //printar fruta no mapa
+    mapa[cobra[0].x][cobra[0].y] = '@'; //printar cabeça no mapa
+    //printar corpo da cobra no mapa
+    for(int i = tamanho_atual; i > 0; i--){
+      mapa[cobra[i].x][cobra[i].y] = 'X';
+    }
+
+    //colisão com próprio corpo (precisar estar depois de printar corpo)
+    if(mapa[cobra[0].x][cobra[0].y]=='X'){
+      printf("Você colidiu com o próprio corpo!\n");
+      break;
+    } 
+
+    usleep(100000); //velocidade do jogo
   } while(1);
 
   //Desativas raw mode. Aplica atributos originais do terminal
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &terminal_original);
   
-  printf("Fim de jogo! Tente novamente");
+  printf("Fim de jogo! Tente novamente\n");
+  printf("O tamanho atual é: %d\n", tamanho_atual);
 
   return 0;
 }
