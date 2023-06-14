@@ -8,6 +8,13 @@
 
 #define LINHAS 10
 #define COLUNAS 32+1
+#define TAMANHO 20
+
+struct posicao {
+  int x;
+  int y;
+};
+typedef struct posicao posicao;
 
 struct termios terminal_original;
 
@@ -21,18 +28,27 @@ int main() {
   sprintf(mapa[3], "|------------------------------|");
   sprintf(mapa[4], "|------------------------------|");
   sprintf(mapa[5], "|------------------------------|");
-  sprintf(mapa[6], "|-----*------------------------|");
+  sprintf(mapa[6], "|------------------------------|");
   sprintf(mapa[7], "|------------------------------|");
   sprintf(mapa[8], "|------------------------------|");
   sprintf(mapa[9], ":==============================:");
 
-  //criando personagem
-  char cobra = '@';
+  //fruta
+  posicao fruta;
+  fruta.x = 6;
+  fruta.y = 6;
+  //criando cobra
+  posicao cobra[TAMANHO];
   //coordenadas iniciais do personagem
-  int x = 5;
-  int y = 3;
-  mapa[x][y] = cobra;   
-
+  cobra[0].x = 5;
+  cobra[0].y = 3;
+  cobra[1].x = 5;
+  cobra[1].y = 4;
+  cobra[2].x = 5;
+  cobra[2].y = 5;
+  mapa[cobra[0].x][cobra[0].y] = '@';
+  mapa[cobra[1].x][cobra[1].y] = 'X';
+  mapa[cobra[2].x][cobra[2].y] = 'X';
   
   //ATIVANDO RAW MODE!
   tcgetattr(STDIN_FILENO, &terminal_original); //pega atributos do terminal e coloca na struct
@@ -47,7 +63,7 @@ int main() {
 
 
   do {  
-    system("clear"); //mudar comando "cls" para "clear" no linux
+    system("clear");
     //imprimir mapa
     for(int i = 0; i < LINHAS; i++) {
         printf("%s\n", mapa[i]);
@@ -59,30 +75,65 @@ int main() {
 
     //movimentação
     switch(tecla){
-        case 'w':
-            mapa[x][y] = '-'; //apagar rastro da cobra
-            x--;
-            break;
-        case 's':
-            mapa[x][y] = '-';
-            x++;
-            break;
-        case 'a':
-            mapa[x][y] = '-';
-            y--;
-            break;
-        case 'd':
-            mapa[x][y] = '-';
-            y++;
-            break;
-        default:
-            continue;
+      case 'w':
+        mapa[cobra[2].x][cobra[2].y] = '-';
+        cobra[2].x = cobra[1].x;
+        cobra[2].y = cobra[1].y;
+        
+        mapa[cobra[1].x][cobra[1].y] = '-';
+        cobra[1].x = cobra[0].x;
+        cobra[1].y = cobra[0].y;
+        
+        mapa[cobra[0].x][cobra[0].y] = '-'; //apagar rastro da cobra
+        cobra[0].x--;
+        break;
+      case 's':
+        mapa[cobra[2].x][cobra[2].y] = '-';
+        cobra[2].x = cobra[1].x;
+        cobra[2].y = cobra[1].y;
+        
+        mapa[cobra[1].x][cobra[1].y] = '-';
+        cobra[1].x = cobra[0].x;
+        cobra[1].y = cobra[0].y;
+        
+        mapa[cobra[0].x][cobra[0].y] = '-';
+        cobra[0].x++;
+        break;
+      case 'a':
+        mapa[cobra[2].x][cobra[2].y] = '-';
+        cobra[2].x = cobra[1].x;
+        cobra[2].y = cobra[1].y;
+        
+        mapa[cobra[1].x][cobra[1].y] = '-';
+        cobra[1].x = cobra[0].x;
+        cobra[1].y = cobra[0].y;
+        
+        mapa[cobra[0].x][cobra[0].y] = '-';
+        cobra[0].y--;
+        break;
+      case 'd':
+        mapa[cobra[2].x][cobra[2].y] = '-';
+        cobra[2].x = cobra[1].x;
+        cobra[2].y = cobra[1].y;
+        
+        mapa[cobra[1].x][cobra[1].y] = '-';
+        cobra[1].x = cobra[0].x;
+        cobra[1].y = cobra[0].y;
+        
+        mapa[cobra[0].x][cobra[0].y] = '-';
+        cobra[0].y++;
+        break;
+      default:
+        continue;
     }
-    if(mapa[x][y]=='=' || mapa[x][y]=='|'){
+    if(mapa[cobra[0].x][cobra[0].y]=='=' || mapa[cobra[0].x][cobra[0].y]=='|'){
         printf("Colidiu com a parede!\n");
         break;
     } 
-    mapa[x][y] = '@';
+    mapa[fruta.x][fruta.y] = '*';
+    mapa[cobra[0].x][cobra[0].y] = '@';
+    mapa[cobra[1].x][cobra[1].y] = 'X';
+    mapa[cobra[2].x][cobra[2].y] = 'X';
 
     usleep(100000);
   } while(1);
