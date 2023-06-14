@@ -5,6 +5,7 @@
 #include <unistd.h> //mudar biblioteca <dos.h> para <unistd.h> no linux
 #include <stdlib.h>
 #include <termios.h>
+#include <string.h>
 
 #define LINHAS 10
 #define COLUNAS 32+1
@@ -18,9 +19,30 @@ typedef struct posicao posicao;
 
 struct termios terminal_original;
 
+
+
+//append buffer
+struct abuf {
+  char *b;
+  int len;
+};
+#define ABUF_INIT {NULL, 0}
+
+void abAppend(struct abuf *ab, const char *s, int len) {
+  char *new = realloc(ab->b, ab->len + len);
+  if (new == NULL) return;
+  memcpy(&new[ab->len], s, len);
+  ab->b = new;
+  ab->len += len;
+}
+
+void abFree(struct abuf *ab) {
+  free(ab->b);
+}
+
+
+
 int main() {
-  system("clear");
-  
   //criando mapa
   char mapa[LINHAS][COLUNAS];
 
@@ -66,12 +88,19 @@ int main() {
 
 
   do {
-    printf("\033[1;1H"); //move o cursor do terminal para linha 1, coluna 1
-    printf("\033[?25l"); //esconder cursor do terminal
+    //system("clear");
+    struct abuf ab = ABUF_INIT;
+    abAppend(&ab, "\x1b[H", 3);
+    abAppend(&ab, "\x1b[H", 3);
+    abAppend(&ab, "\x1b[?25l", 6);
+    
+    write(STDOUT_FILENO, ab.b, ab.len);
+    abFree(&ab);
+
 
     //imprimir mapa
     for(int i = 0; i < LINHAS; i++) {
-      printf("\033[K"); //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
+
       printf("%s\n", mapa[i]);
     }
     
@@ -155,7 +184,7 @@ int main() {
       break;
     } 
 
-    usleep(90000); //velocidade do jogo
+    usleep(100000); //velocidade do jogo
   } while(1);
 
   //Desativas raw mode. Aplica atributos originais do terminal
@@ -163,7 +192,6 @@ int main() {
   
   printf("Fim de jogo! Tente novamente\n");
   printf("O tamanho atual é: %d\n", tamanho_atual);
-  printf("\033[?25h"); //mostrar cursor do terminal
 
   return 0;
 }
