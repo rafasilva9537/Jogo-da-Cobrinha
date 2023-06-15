@@ -8,9 +8,9 @@
 #define E "\x1b[0m"
 
 int main() {
+  int opcao = 100;
 
-  int opcao = 0;
-  while (1) {
+  while (opcao != 0) {
     system("clear");
     usleep(55000);
     printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
@@ -64,60 +64,72 @@ int main() {
              "            " E "\n");
     printf("                                                                   "
            "          \n");
-    
-    //consertar as cores que estão dando erro de compilação.
-    
-    printf( /*R*/ "                           0 - Sair do jogo                  " /*E*/
-        "\n"); 
+
+    // consertar as cores que estão dando erro de compilação.
+
+    printf(                                                                /*R*/
+           "                           0 - Sair do jogo                  " /*E*/
+           "\n");
 
     scanf("%i", &opcao);
     getchar();
 
     switch (opcao) {
-    case 1: {
+
+    case 1:
       system("clear");
       // jogo inicia aqui
       break;
-    }
 
     case 2: {
-      while (1) {
-              
-      system("clear");
-      printf("1 - Controles\n");
-      printf("2 - Regras\n");
-      printf("0 - Voltar\n");
+      while (opcao != 0) {
+
+        system("clear");
+        printf("1 - Controles\n");
+        printf("2 - Regras\n");
+        printf("0 - Voltar\n");
+
+        scanf("%i", &opcao);
+        getchar();
+
+        switch (opcao) {
+        case 1:
+          while (opcao != 4) {
+            printf("\n");
+            printf("Controles\n");
+            printf("\n");
+            usleep(55000);
+            printf("W - Para cima\n");
+            usleep(55000);
+            printf("S - Para baixo\n");
+            usleep(55000);
+            printf("D - Para a direita\n");
+            usleep(55000);
+            printf("A - Para a esquerda\n");
+            usleep(55000);
+            printf("\n");
+            printf("4 - para voltar\n");
+            scanf("%i", &opcao);
+            getchar();
+          }
+          break;
+
         
-      scanf("%i", &opcao);
-      getchar();
-      switch (opcao) {
-
-      case 1:
-        printf("\n");
-        printf("Controles\n");
-        printf("\n");
-        usleep(55000);
-        printf("W - Para cima\n");
-        usleep(55000);
-        printf("S - Para baixo\n");
-        usleep(55000);
-        printf("D - Para a direita\n");
-        usleep(55000);
-        printf("A - Para a esquerda\n");
-        printf("\n");
-        break;
-
-      case 2:
-        printf("regras\n");
-        break;
+        case 2:
+          while (opcao != 4){
+            printf("regras\n");
+            printf("4 - para voltar\n");
+            scanf("%i", &opcao);
+            getchar();
+          }
+          break;
+        }
       }
-
-      break;
+      break; //break do case 2
     }
-      }
-
-
-    case 3: {
+    
+    case 3: 
+      while(opcao != 4){
       system("clear");
       printf("\n");
       printf(G "Jogo Snake - versão 1.0 early" E "\n");
@@ -125,21 +137,14 @@ int main() {
       printf("\n");
       printf(B "Feito por Davi e Rafael" E "\n");
       printf("\n");
-      break;
-    }
-
-    case 0:
-      break;
-    default:
-      printf(/*R*/"Opção inválida!!"/*E*/ "\n");
-    }
-
-    printf(G "Precione enter para continuar.." E "\n");
-    getchar();
-
-    if (opcao == 0) {
-      break;
+      printf("4 - para voltar\n");
+      scanf("%i", &opcao);
+      getchar();
+     }
+    break;
     }
   }
+  system("clear");
+
   return 0;
 }
