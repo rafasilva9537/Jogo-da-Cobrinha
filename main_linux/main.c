@@ -86,10 +86,16 @@ int main() {
           case 2: {
           while (1) {
             system("clear");
-            
-            printf("1 - Controles\n");
-            printf("2 - Regras\n");
-            printf("0 - Voltar\n");
+            printf("                                                                 \n");
+            usleep(155000);
+            printf(Y"                                   1 - Controles                    "E"  \n");
+            printf("                                                                 \n");
+            usleep(155000);
+            printf(Y"                                   2 - Regras                       "E"  \n");
+            printf("                                                                 \n");
+            usleep(155000);
+            printf(V"                                   0 - Voltar                       "E"  \n");
+            printf("                                                                 \n");
             
             int opcao = -1;
             scanf("%i", &opcao);
@@ -99,6 +105,7 @@ int main() {
             
               switch (opcao) {
               case 1:
+                system("clear");
                   printf("\n");
                   printf("Controles\n");
                   printf("\n");
@@ -117,6 +124,7 @@ int main() {
               break;
                 
               case 2:
+                system("clear");
                   printf("regras\n");
                   printf("0 - para voltar\n");
                   getchar();
