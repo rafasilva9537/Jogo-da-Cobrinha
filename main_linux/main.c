@@ -1,50 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#define G "\x1b[32m"
+#define G "\x1b[32m" 
 #define Y "\x1b[33m"
-#define R "\x1b[31m"
+#define V "\x1b[31m"
 #define B "\x1b[34m"
 #define E "\x1b[0m"
 
 
-int main() 
-{
-  
+int main() {
   while (1) {
-
-      system("clear");
-        usleep(55000);
+    system("clear");
+    usleep(55000);
         printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
                  "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
-        usleep(55000);
+        usleep(60000);
         printf(G "█                                                                "
                  "               █" E "\n");
-        usleep(55000);
+        usleep(70000);
         printf(G " █           ▄█▀▀▀█▄█                         ▀███               "
                  "              █" E "\n");
-        usleep(55000);
+        usleep(80000);
         printf(G "█           ▄██    ▀█                           ██               "
                  "               █" E "\n");
-        usleep(55000);
+        usleep(90000);
         printf(G " █           ▀███▄     ▀████████▄     ▄█▀██▄    ██  ▄██▀    "
                  "▄▄█▀▀█▄            █" E "\n");
-        usleep(55000);
+        usleep(80000);
         printf(G "█              ▀█████▄   ██    ██    ██   ██    ██ ▄█      ▄█▀   "
                  "██             █" E "\n");
-        usleep(55000);
+        usleep(70000);
         printf(G " █           ▄     ▀██   ██    ██     ▄█████    ██▄██      "
                  "██▀▀▀▀▀▀            █" E "\n");
-        usleep(55000);
+        usleep(60000);
         printf(G "█            ██     ██   ██    ██    ██   ██    ██ ▀██▄    ██▄   "
                  "▄▄             █" E "\n");
-        usleep(55000);
+        usleep(50000);
         printf(G " █           ▀██████▀  ▄████  ████  ▄████▀██▄  ████▄ ██▄▄  "
                  "▀██████▀            █" E "\n");
-        usleep(55000);
+        usleep(40000);
         printf(G "█                                                                "
                  "               █" E "\n");
-        usleep(55000);
+        usleep(30000);
         printf(G "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"
                  "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀" E "\n");
     
@@ -53,40 +50,38 @@ int main()
     
         printf("                                                                   "
                "          \n");
-        usleep(56000);
-        printf(Y "                                1 - Novo jogo                    "
-                 "            " E "\n");
-        printf("                                                                   "
-               "          \n");
-        printf(Y "                                2 - Como Jogar                   "
-                 "            " E "\n");
-        printf("                                                                   "
-               "          \n");
-        printf(Y "                                3 - Creditos                     "
-                 "            " E "\n");
-        printf("                                                                   "
-               "          \n");
+
+        usleep(155000); 
+        printf(Y"                                1 - Novo jogo                "E"    \n");
+        usleep(155000);
+        printf("                                                                 \n");
+        usleep(155000);
+        printf(Y"                                2 - Como Jogar               "E"   \n");
+        usleep(155000);
+        printf("                                                                 \n");     
+        usleep(155000);
+        printf(Y"                                3 - Creditos                 "E"    \n");
+        usleep(155000);
+        printf("                                                                 \n");
+        usleep(155000);
+        printf(V"                                0 - Sair do jogo             "E"    \n");
+
+
     
-        // consertar as cores que estão dando erro de compilação.
+    int opcao = -1;
+    scanf("%i", &opcao);
+    getchar();
     
-        printf(                                                                /*R*/
-               "                           0 - Sair do jogo                  " /*E*/
-               "\n");
-        
-        int opcao = -1 ;
-        scanf("%i", &opcao);
-        getchar();
-        
-        switch (opcao) {
-        case 1:{
-           system("clear");
+    switch (opcao){
+      case 1:{
+        system("clear");
            // jogo inicia aqui
            getchar();
-          break; 
-          }
-        }
+          break;  
+      }    
+    }
+
     
-        
         switch (opcao) {
           case 2: {
           while (1) {
@@ -156,23 +151,9 @@ int main()
 
     
   
-  if (opcao == 0) break;
+    if (opcao == 0) break;
   
   } 
-}  
-  
-      
-        
-          
-     
-        
-   
-  
-  // 1º while          // if (opcao == 0) break;     
-  
-  
-    
 
-    
-
-
+  
+}
