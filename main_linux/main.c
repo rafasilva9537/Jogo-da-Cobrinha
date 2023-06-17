@@ -11,6 +11,10 @@
 int main() {
   while (1) {
     system("clear");
+    printf(V "Ajuste seu terminal deixando o titulo abaixo centralizado aos lados! :) " E "\n");
+        printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
+                 "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
+
     usleep(55000);
         printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
                  "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
@@ -44,6 +48,8 @@ int main() {
         usleep(30000);
         printf(G "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"
                  "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀" E "\n");
+        printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
+                 "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
     
         printf("                                                                   "
                "          \n");
@@ -66,8 +72,7 @@ int main() {
         usleep(155000);
         printf(V"                                0 - Sair do jogo             "E"    \n");
 
-
-    
+      
     int opcao = -1;
     scanf("%i", &opcao);
     getchar();
@@ -88,7 +93,7 @@ int main() {
             system("clear");
             printf("                                                                 \n");
             usleep(155000);
-            printf(Y"                                   1 - Controles                    "E"  \n");
+            printf(Y"                                   1 - Controles                    "E"  \n");          
             printf("                                                                 \n");
             usleep(155000);
             printf(Y"                                   2 - Regras                       "E"  \n");
@@ -102,31 +107,52 @@ int main() {
             getchar();
             if (opcao == 0) break;
     
+
+
+
             
               switch (opcao) {
               case 1:
                 system("clear");
                   printf("\n");
-                  printf("Controles\n");
+                  printf(Y"                               Controles                     "E"   \n");
+                  printf("\n");
                   printf("\n");
                   usleep(55000);
-                  printf("W - Para cima\n");
+                  printf(B"                             W - Para cima                   "E"   \n");
+                  printf("\n");
                   usleep(55000);
-                  printf("S - Para baixo\n");
+                  printf(B"                             S - Para baixo                  "E"   \n");
+                  printf("\n");
                   usleep(55000);
-                  printf("D - Para a direita\n");
+                  printf(B"                             D - Para a direita              "E"   \n");
+                  printf("\n");
                   usleep(55000);
-                  printf("A - Para a esquerda\n");
+                  printf(B"                             A - Para a esquerda             "E"   \n");
+                  printf("\n");
                   usleep(55000);
                   printf("\n");
-                  printf("0 - para voltar\n");
+                  printf(V"                             0 - Para voltar                 "E"     \n");
                   getchar();
               break;
+
+
+
                 
               case 2:
                 system("clear");
-                  printf("regras\n");
-                  printf("0 - para voltar\n");
+                  printf(Y"                              Regras                        "E"    \n");
+                  printf("\n");
+    printf(B"1º para começar, basta movimentar em uma das teclas para a cobrinha se movimentar."E"\n");
+                printf("\n");
+    printf(B"2º evite bater nas bordas do mapa e no próprio corpo."E"\n");
+                printf("\n");
+    printf(B"3º Lembre-se, o movimento da cobra é constante, ela nunca irá parar!"E"\n");
+                printf("\n");
+    printf(B"4º A sua pontuação aumenta ao longo em que voce vai comendo as frutinhas, ao mesmo tempo o seu corpo aumenta."E"\n");
+                  printf("\n");
+                  printf(V"                         0 - para voltar                   "E"     \n");
+                  printf("\n");
                   getchar();
               break;
               }
@@ -138,17 +164,20 @@ int main() {
           break;
         }
 
+
+    
+
         switch (opcao) {
           case 3:  
           while (1) {
           system("clear");
           printf("\n");
-          printf(G "Jogo Snake - versão 1.0 early" E "\n");
-          printf(Y "Language C edition!" E "\n");
+          printf(G "Jogo Snake - versão 1.0 early "E"\n");
+          printf(Y "Language C edition! "E"\n");
           printf("\n");
-          printf(B "Feito por Davi e Rafael" E "\n");
+          printf(B "Feito por Davi e Rafael "E"\n");
           printf("\n");
-          printf("0 - para voltar\n");
+          printf(V"0 - para voltar "E"\n");
           int opcao = -1;
           scanf("%i", &opcao);
           getchar();
