@@ -7,6 +7,7 @@
 #define B "\x1b[34m"
 #define E "\x1b[0m"
 
+
 int main() 
 {
   
@@ -76,9 +77,6 @@ int main()
         scanf("%i", &opcao);
         getchar();
         
-        
-    
-        
         switch (opcao) {
         case 1:{
            system("clear");
@@ -86,7 +84,10 @@ int main()
            getchar();
           break; 
           }
-          
+        }
+    
+        
+        switch (opcao) {
           case 2: {
           while (1) {
             system("clear");
@@ -127,20 +128,16 @@ int main()
               break;
               }
             }     
-          }  
+          } //esse é o fim do menu 2
+            
           break; //break do case 2
           case 0: system("clear");
-          
+          break;
         }
-  
-  if (opcao == 0) break;
-  
-  } 
-}  
-  
-      
-        /*case 3:          //outro submenu (nada haver com a opçao 2)
-          while(1) {
+
+        switch (opcao) {
+          case 3:  
+          while (1) {
           system("clear");
           printf("\n");
           printf(G "Jogo Snake - versão 1.0 early" E "\n");
@@ -149,14 +146,26 @@ int main()
           printf(B "Feito por Davi e Rafael" E "\n");
           printf("\n");
           printf("0 - para voltar\n");
-            
-          int pcao = -1;
+          int opcao = -1;
           scanf("%i", &opcao);
-          getchar(); 
+          getchar();
+          if (opcao == 0) break;
+          }
           break;
+    }
+
+    
+  
+  if (opcao == 0) break;
+  
+  } 
+}  
+  
+      
+        
           
      
-         }*/
+        
    
   
   // 1º while          // if (opcao == 0) break;     
