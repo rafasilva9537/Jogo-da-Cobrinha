@@ -24,16 +24,16 @@ int main() {
   //criando mapa
   char mapa[LINHAS][COLUNAS];
 
-  sprintf(mapa[0], ":==============================:");
-  sprintf(mapa[1], "|------------------------------|");
-  sprintf(mapa[2], "|------------------------------|");
-  sprintf(mapa[3], "|------------------------------|");
-  sprintf(mapa[4], "|------------------------------|");
-  sprintf(mapa[5], "|------------------------------|");
-  sprintf(mapa[6], "|------------------------------|");
-  sprintf(mapa[7], "|------------------------------|");
-  sprintf(mapa[8], "|------------------------------|");
-  sprintf(mapa[9], ":==============================:");
+  strcpy(mapa[0], ":==============================:");
+  strcpy(mapa[1], "|------------------------------|");
+  strcpy(mapa[2], "|------------------------------|");
+  strcpy(mapa[3], "|------------------------------|");
+  strcpy(mapa[4], "|------------------------------|");
+  strcpy(mapa[5], "|------------------------------|");
+  strcpy(mapa[6], "|------------------------------|");
+  strcpy(mapa[7], "|------------------------------|");
+  strcpy(mapa[8], "|------------------------------|");
+  strcpy(mapa[9], ":==============================:");
 
   //fruta
   posicao fruta;
@@ -44,11 +44,11 @@ int main() {
   //coordenadas iniciais do personagem
   int tamanho_atual = 2; //serve para criar corpo da cobra em loops de forma automática
   cobra[0].x = 5;
-  cobra[0].y = 3;
+  cobra[0].y = 5;
   cobra[1].x = 5;
   cobra[1].y = 4;
   cobra[2].x = 5;
-  cobra[2].y = 5;
+  cobra[2].y = 3;
   mapa[cobra[0].x][cobra[0].y] = '@';
   mapa[cobra[1].x][cobra[1].y] = 'X';
   mapa[cobra[2].x][cobra[2].y] = 'X';
@@ -64,7 +64,8 @@ int main() {
 
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw); //Aplica atributos modificados da struct raw no terminal. TCSAFLUSH especifica quando aplicar as mudanças
 
-
+  //comando de movimento
+  char tecla = 'd';
   do {
     printf("\033[1;1H"); //move o cursor do terminal para linha 1, coluna 1
     printf("\033[?25l"); //esconder cursor do terminal
@@ -78,11 +79,23 @@ int main() {
       }
       printf("\n");
     }
-    
-    //comando de movimento
-    char tecla;
+
+    char tecla_anterior = tecla;
     read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
 
+    //evitar andar para trás/colidir com próprio corpo
+    if(tecla == 'a' && tecla_anterior == 'd'){
+      tecla = 'd';
+    }
+    if(tecla == 'd' && tecla_anterior == 'a'){
+      tecla = 'a';
+    }
+    if(tecla == 'w' && tecla_anterior == 's'){
+      tecla = 's';
+    }
+    if(tecla == 's' && tecla_anterior == 'w'){
+      tecla = 'w';
+    }
     
     //movimentação
     switch(tecla){
@@ -105,7 +118,7 @@ int main() {
         
         cobra[0].x++;
         break;
-      case 'a':
+      case 'a':   
         for(int i = tamanho_atual; i > 0; i--){
           mapa[cobra[i].x][cobra[i].y] = '-';
           cobra[i].x = cobra[i-1].x;
@@ -114,7 +127,7 @@ int main() {
         
         cobra[0].y--;
         break;
-      case 'd':
+      case 'd':       
         for(int i = tamanho_atual; i > 0; i--){
           mapa[cobra[i].x][cobra[i].y] = '-';
           cobra[i].x = cobra[i-1].x;
