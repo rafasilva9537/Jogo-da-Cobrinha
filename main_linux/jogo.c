@@ -71,8 +71,12 @@ int main() {
 
     //imprimir mapa
     for(int i = 0; i < LINHAS; i++) {
-      printf("\033[K"); //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
-      printf("%s\n", mapa[i]);
+      //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
+      printf("\033[K");
+      for(int j = 0; j < COLUNAS; j++) {
+        printf("%c", mapa[i][j]);
+      }
+      printf("\n");
     }
     
     //comando de movimento
@@ -83,47 +87,40 @@ int main() {
     //movimentação
     switch(tecla){
       case 'w':
+        //apagar rastro da cobra
         for(int i = tamanho_atual; i > 0; i--){
           mapa[cobra[i].x][cobra[i].y] = '-';
-          int j = i-1;
-          cobra[i].x = cobra[j].x; //i= 5,4,3...
-          cobra[i].y = cobra[j].y; //j= 4,3,2...
+          cobra[i].x = cobra[i-1].x; //...4,3,2,1 = ...3,2,1,0
+          cobra[i].y = cobra[i-1].y;
         }
         
-        mapa[cobra[0].x][cobra[0].y] = '-'; //apagar rastro da cobra
         cobra[0].x--;
         break;
       case 's':
         for(int i = tamanho_atual; i > 0; i--){
           mapa[cobra[i].x][cobra[i].y] = '-';
-          int j = i-1;
-          cobra[i].x = cobra[j].x;
-          cobra[i].y = cobra[j].y;
+          cobra[i].x = cobra[i-1].x;
+          cobra[i].y = cobra[i-1].y;
         }
         
-        mapa[cobra[0].x][cobra[0].y] = '-';
         cobra[0].x++;
         break;
       case 'a':
         for(int i = tamanho_atual; i > 0; i--){
           mapa[cobra[i].x][cobra[i].y] = '-';
-          int j = i-1;
-          cobra[i].x = cobra[j].x;
-          cobra[i].y = cobra[j].y;
+          cobra[i].x = cobra[i-1].x;
+          cobra[i].y = cobra[i-1].y;
         }
         
-        mapa[cobra[0].x][cobra[0].y] = '-';
         cobra[0].y--;
         break;
       case 'd':
         for(int i = tamanho_atual; i > 0; i--){
           mapa[cobra[i].x][cobra[i].y] = '-';
-          int j = i-1;
-          cobra[i].x = cobra[j].x;
-          cobra[i].y = cobra[j].y;
+          cobra[i].x = cobra[i-1].x;
+          cobra[i].y = cobra[i-1].y;
         }
         
-        mapa[cobra[0].x][cobra[0].y] = '-';
         cobra[0].y++;
         break;
       default:
@@ -134,6 +131,10 @@ int main() {
       fruta.x = 3;
       fruta.y = 15;
       tamanho_atual++;
+
+      //evitar que corpo novo fique com posicao (0,0)
+      cobra[tamanho_atual].x = cobra[tamanho_atual-1].x;
+      cobra[tamanho_atual].y = cobra[tamanho_atual-1].y;
     }
 
     //colisão com parede (precisa estar antes de printar corpo)
