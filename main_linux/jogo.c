@@ -11,9 +11,9 @@
 #define V "\x1b[31m"
 #define E "\x1b[0m"
 
-#define LINHAS 10
-#define COLUNAS 32+1
-#define TAMANHO 320
+#define LINHAS 17
+#define COLUNAS 48+1
+#define TAMANHO 690
 
 struct posicao {
   int x;
@@ -23,23 +23,34 @@ typedef struct posicao posicao;
 
 struct termios terminal_original;
 
+
 int main() {
   system("clear");
   
   //criando mapa
   char mapa[LINHAS][COLUNAS];
 
-  strcpy(mapa[0], ":==============================:");
-  strcpy(mapa[1], "|------------------------------|");
-  strcpy(mapa[2], "|------------------------------|");
-  strcpy(mapa[3], "|------------------------------|");
-  strcpy(mapa[4], "|------------------------------|");
-  strcpy(mapa[5], "|------------------------------|");
-  strcpy(mapa[6], "|------------------------------|");
-  strcpy(mapa[7], "|------------------------------|");
-  strcpy(mapa[8], "|------------------------------|");
-  strcpy(mapa[9], ":==============================:");
 
+  strcpy(mapa[0],  "|==============================================|");                 
+  strcpy(mapa[1],  "|..............................................|");
+  strcpy(mapa[2],  "|..............................................|");
+  strcpy(mapa[3],  "|..............................................|");
+  strcpy(mapa[4],  "|..............................................|");
+  strcpy(mapa[5],  "|..............................................|");
+  strcpy(mapa[6],  "|..............................................|");
+  strcpy(mapa[7],  "|..............................................|");
+  strcpy(mapa[8],  "|..............................................|");
+  strcpy(mapa[9],  "|..............................................|");
+  strcpy(mapa[10], "|..............................................|");
+  strcpy(mapa[11], "|..............................................|");
+  strcpy(mapa[12], "|..............................................|");
+  strcpy(mapa[13], "|..............................................|");
+  strcpy(mapa[14], "|..............................................|");
+  strcpy(mapa[15], "|..............................................|");
+  strcpy(mapa[16], "|==============================================|");           
+
+
+  
   //fruta
   posicao fruta;
   fruta.x = 6;
@@ -118,7 +129,7 @@ int main() {
 
     //apagar rastro da cobra
     for(int i = tamanho_atual; i > 0; i--){
-      mapa[cobra[i].x][cobra[i].y] = '-';
+      mapa[cobra[i].x][cobra[i].y] = '.';
       cobra[i].x = cobra[i-1].x; //...4,3,2,1 = ...3,2,1,0
       cobra[i].y = cobra[i-1].y;
     }
@@ -147,6 +158,7 @@ int main() {
       
       fruta.x = posicaox_aleatoria;
       fruta.y = posicaoy_aleatoria;
+
       tamanho_atual++;
 
       //evitar que corpo novo fique com posicao (0,0)
@@ -155,7 +167,7 @@ int main() {
     }
 
     //colisão com parede (precisa estar antes de definir corpo)
-    if(mapa[cobra[0].x][cobra[0].y]=='=' || mapa[cobra[0].x][cobra[0].y]=='|'){
+    if(mapa[cobra[0].x][cobra[0].y]== '=' || mapa[cobra[0].x][cobra[0].y]=='|'){  
       printf("   Você colidiu com a parede!\n");
       break;
     } 
