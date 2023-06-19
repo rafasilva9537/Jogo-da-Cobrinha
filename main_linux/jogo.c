@@ -5,10 +5,15 @@
 #include <unistd.h> //mudar biblioteca <dos.h> para <unistd.h> no linux
 #include <stdlib.h>
 #include <termios.h>
+#include <time.h>
+
+#define G "\x1b[32m"
+#define V "\x1b[31m"
+#define E "\x1b[0m"
 
 #define LINHAS 10
 #define COLUNAS 32+1
-#define TAMANHO 210
+#define TAMANHO 320
 
 struct posicao {
   int x;
@@ -39,6 +44,7 @@ int main() {
   posicao fruta;
   fruta.x = 6;
   fruta.y = 6;
+  mapa[fruta.x][fruta.y] = '*';
   //criando cobra
   posicao cobra[TAMANHO];
   //coordenadas iniciais do personagem
@@ -71,11 +77,17 @@ int main() {
     printf("\033[?25l"); //esconder cursor do terminal
 
     //imprimir mapa
+    printf(" "V"     Clique 'q' para sair "E" \n\n");
     for(int i = 0; i < LINHAS; i++) {
       //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
       printf("\033[K");
       for(int j = 0; j < COLUNAS; j++) {
-        printf("%c", mapa[i][j]);
+        if(mapa[i][j] == '@' || mapa[i][j] == 'X'){
+          printf(""G"%c"E"", mapa[i][j]);
+        }
+        else{
+          printf("%c", mapa[i][j]);
+        }
       }
       printf("\n");
     }
@@ -83,61 +95,48 @@ int main() {
     char tecla_anterior = tecla;
     read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
 
-    //evitar andar para trás/colidir com próprio corpo
-    if(tecla == 'a' && tecla_anterior == 'd'){
+    //sair do jogo
+    if(tecla == 'q'){
+      break;
+    }
+    //evitar andar para trás e clicar outros botões
+    else if(!(tecla == 's' || tecla == 'a'|| tecla == 'd'|| tecla == 'w')){
+      tecla = tecla_anterior;
+    }
+    else if(tecla == 'a' && tecla_anterior == 'd'){
       tecla = 'd';
     }
-    if(tecla == 'd' && tecla_anterior == 'a'){
+    else if(tecla == 'd' && tecla_anterior == 'a'){
       tecla = 'a';
     }
-    if(tecla == 'w' && tecla_anterior == 's'){
+    else if(tecla == 'w' && tecla_anterior == 's'){
       tecla = 's';
     }
-    if(tecla == 's' && tecla_anterior == 'w'){
+    else if(tecla == 's' && tecla_anterior == 'w'){
       tecla = 'w';
+    }
+
+    //apagar rastro da cobra
+    for(int i = tamanho_atual; i > 0; i--){
+      mapa[cobra[i].x][cobra[i].y] = '-';
+      cobra[i].x = cobra[i-1].x; //...4,3,2,1 = ...3,2,1,0
+      cobra[i].y = cobra[i-1].y;
     }
     
     //movimentação
     switch(tecla){
       case 'w':
-        //apagar rastro da cobra
-        for(int i = tamanho_atual; i > 0; i--){
-          mapa[cobra[i].x][cobra[i].y] = '-';
-          cobra[i].x = cobra[i-1].x; //...4,3,2,1 = ...3,2,1,0
-          cobra[i].y = cobra[i-1].y;
-        }
-        
         cobra[0].x--;
         break;
       case 's':
-        for(int i = tamanho_atual; i > 0; i--){
-          mapa[cobra[i].x][cobra[i].y] = '-';
-          cobra[i].x = cobra[i-1].x;
-          cobra[i].y = cobra[i-1].y;
-        }
-        
         cobra[0].x++;
         break;
       case 'a':   
-        for(int i = tamanho_atual; i > 0; i--){
-          mapa[cobra[i].x][cobra[i].y] = '-';
-          cobra[i].x = cobra[i-1].x;
-          cobra[i].y = cobra[i-1].y;
-        }
-        
         cobra[0].y--;
         break;
       case 'd':       
-        for(int i = tamanho_atual; i > 0; i--){
-          mapa[cobra[i].x][cobra[i].y] = '-';
-          cobra[i].x = cobra[i-1].x;
-          cobra[i].y = cobra[i-1].y;
-        }
-        
         cobra[0].y++;
         break;
-      default:
-        continue;
     }
     //comer fruta
     if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
@@ -150,33 +149,32 @@ int main() {
       cobra[tamanho_atual].y = cobra[tamanho_atual-1].y;
     }
 
-    //colisão com parede (precisa estar antes de printar corpo)
+    //colisão com parede (precisa estar antes de definir corpo)
     if(mapa[cobra[0].x][cobra[0].y]=='=' || mapa[cobra[0].x][cobra[0].y]=='|'){
-      printf("Você colidiu com a parede!\n");
+      printf("   Você colidiu com a parede!\n");
       break;
     } 
     
-    mapa[fruta.x][fruta.y] = '*'; //printar fruta no mapa
-    mapa[cobra[0].x][cobra[0].y] = '@'; //printar cabeça no mapa
-    //printar corpo da cobra no mapa
+    mapa[fruta.x][fruta.y] = '*'; //definir fruta no mapa
+    mapa[cobra[0].x][cobra[0].y] = '@'; //definir cabeça no mapa
+    //definir corpo da cobra no mapa
     for(int i = tamanho_atual; i > 0; i--){
       mapa[cobra[i].x][cobra[i].y] = 'X';
     }
 
-    //colisão com próprio corpo (precisar estar depois de printar corpo)
+    //colisão com próprio corpo (precisar estar depois de definir corpo)
     if(mapa[cobra[0].x][cobra[0].y]=='X'){
       printf("Você colidiu com o próprio corpo!\n");
       break;
     } 
 
-    usleep(90000); //velocidade do jogo
+    usleep(95000); //velocidade do jogo
   } while(1);
 
   //Desativas raw mode. Aplica atributos originais do terminal
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &terminal_original);
   
-  printf("Fim de jogo! Tente novamente\n");
-  printf("O tamanho atual é: %d\n", tamanho_atual);
+  printf("  Fim de jogo! Tente novamente\n");
   printf("\033[?25h"); //mostrar cursor do terminal
 
   return 0;
