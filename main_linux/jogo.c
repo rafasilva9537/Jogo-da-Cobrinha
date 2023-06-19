@@ -25,12 +25,12 @@ typedef struct posicao posicao;
 struct termios terminal_original;
 
 
-
 int main() {
   system("clear");
   
   //criando mapa
   char mapa[LINHAS][COLUNAS];
+
 
    strcpy(mapa[0],  "|==============================================|");           
    strcpy(mapa[1],  "|..............................................|");
@@ -49,6 +49,7 @@ int main() {
    strcpy(mapa[14], "|..............................................|");
    strcpy(mapa[15], "|..............................................|");
    strcpy(mapa[16], "|==============================================|");           
+
 
 
   
@@ -150,10 +151,16 @@ int main() {
         cobra[0].y++;
         break;
     }
+    
     //comer fruta
     if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
-      fruta.x = 3;
-      fruta.y = 15;
+      srand(time(0));
+      int posicaox_aleatoria = (rand()%8)+1;
+      int posicaoy_aleatoria = (rand()%30)+1;
+      
+      fruta.x = posicaox_aleatoria;
+      fruta.y = posicaoy_aleatoria;
+
       tamanho_atual++;
 
       //evitar que corpo novo fique com posicao (0,0)
