@@ -12,9 +12,9 @@
 #define B "\x1b[34m"
 #define E "\x1b[0m"
 
-#define LINHAS 17
-#define COLUNAS 48+1
-#define TAMANHO 690
+#define LINHAS 10
+#define COLUNAS 28+1
+#define TAMANHO 182
 
 struct posicao {
   int x;
@@ -32,23 +32,16 @@ int main() {
   char mapa[LINHAS][COLUNAS];
 
 
-  strcpy(mapa[0],  "|==============================================|");           
-  strcpy(mapa[1],  "|..............................................|");
-  strcpy(mapa[2],  "|..............................................|");
-  strcpy(mapa[3],  "|..............................................|");
-  strcpy(mapa[4],  "|..............................................|");
-  strcpy(mapa[5],  "|..............................................|");
-  strcpy(mapa[6],  "|..............................................|");
-  strcpy(mapa[7],  "|..............................................|");
-  strcpy(mapa[8],  "|..............................................|");
-  strcpy(mapa[9],  "|..............................................|");
-  strcpy(mapa[10], "|..............................................|");
-  strcpy(mapa[11], "|..............................................|");
-  strcpy(mapa[12], "|..............................................|");
-  strcpy(mapa[13], "|..............................................|");
-  strcpy(mapa[14], "|..............................................|");
-  strcpy(mapa[15], "|..............................................|");
-  strcpy(mapa[16], "|==============================================|");           
+  strcpy(mapa[0],  ":==========================:");           
+  strcpy(mapa[1],  "|..........................|");
+  strcpy(mapa[2],  "|..........................|");
+  strcpy(mapa[3],  "|..........................|");
+  strcpy(mapa[4],  "|..........................|");
+  strcpy(mapa[5],  "|..........................|");
+  strcpy(mapa[6],  "|..........................|");
+  strcpy(mapa[7],  "|..........................|");
+  strcpy(mapa[8],  "|..........................|");
+  strcpy(mapa[9],  ":==========================:");        
 
   
   //fruta
@@ -150,42 +143,53 @@ int main() {
         break;
     }
     
-    //comer fruta 
-    if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
-      srand(time(0));
-      int posicaox_aleatoria = (rand()%15)+1; //entre 1 a 15, exclui 0 e 16
-      int posicaoy_aleatoria = (rand()%46)+1; //entre 1 a 46, exclui 0 e 47
+    //comer fruta cobra[0].x == fruta.x && cobra[0].y == fruta.y
+    int colidiu_fruta = 0;
+    if(1){
+      jump_fruta:
+        srand(time(0));
+        int posicaox_aleatoria = (rand()%(LINHAS-2))+1; //entre 1 a 15, exclui 0 e 16
+        int posicaoy_aleatoria = (rand()%(COLUNAS-2-1))+1; //entre 1 a 46, exclui 0 e 47
+        
+        fruta.x = posicaox_aleatoria;
+        fruta.y = posicaoy_aleatoria;
+  
+        tamanho_atual++;
+  
+        //evitar que corpo novo fique com posicao (0,0)
+        cobra[tamanho_atual].x = cobra[tamanho_atual-1].x;
+        cobra[tamanho_atual].y = cobra[tamanho_atual-1].y;
+    }
+
+    if(colidiu_fruta == 0){
+      //colisão com parede (precisa estar antes de definir corpo)
+      if(mapa[cobra[0].x][cobra[0].y]== '=' || mapa[cobra[0].x][cobra[0].y]=='|'){  
+        printf(" \n");
+        printf(B              "Você colidiu com a parede! "E" \n");
+        break;
+      } 
       
-      fruta.x = posicaox_aleatoria;
-      fruta.y = posicaoy_aleatoria;
-
-      tamanho_atual++;
-
-      //evitar que corpo novo fique com posicao (0,0)
-      cobra[tamanho_atual].x = cobra[tamanho_atual-1].x;
-      cobra[tamanho_atual].y = cobra[tamanho_atual-1].y;
+      mapa[fruta.x][fruta.y] = '*'; //definir fruta no mapa
+      mapa[cobra[0].x][cobra[0].y] = '@'; //definir cabeça no mapa
+      //definir corpo da cobra no mapa
+      for(int i = tamanho_atual; i > 0; i--){
+        mapa[cobra[i].x][cobra[i].y] = 'X';
+      }
+  
+      //colisão com próprio corpo (precisar estar depois de definir corpo)
+      if(mapa[cobra[0].x][cobra[0].y]=='X'){
+        printf("Você colidiu com o próprio corpo!\n");
+        break;
+      } 
     }
 
-    //colisão com parede (precisa estar antes de definir corpo)
-    if(mapa[cobra[0].x][cobra[0].y]== '=' || mapa[cobra[0].x][cobra[0].y]=='|'){  
-      printf(" \n");
-      printf(B              "Você colidiu com a parede! "E" \n");
-      break;
-    } 
+    //se fruta aparecer na posição da cobra, jogo acaba
+    if(mapa[fruta.x][fruta.y] == 'X' || mapa[fruta.x][fruta.y] == '@'){
+      colidiu_fruta = 1;
+      goto jump_fruta;
+    }
+
     
-    mapa[fruta.x][fruta.y] = '*'; //definir fruta no mapa
-    mapa[cobra[0].x][cobra[0].y] = '@'; //definir cabeça no mapa
-    //definir corpo da cobra no mapa
-    for(int i = tamanho_atual; i > 0; i--){
-      mapa[cobra[i].x][cobra[i].y] = 'X';
-    }
-
-    //colisão com próprio corpo (precisar estar depois de definir corpo)
-    if(mapa[cobra[0].x][cobra[0].y]=='X'){
-      printf("Você colidiu com o próprio corpo!\n");
-      break;
-    } 
-
     usleep(95000); //velocidade do jogo
   } while(1);
 

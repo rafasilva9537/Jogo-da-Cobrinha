@@ -154,7 +154,7 @@ int main() {
     if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
       srand(time(0));
       int posicaox_aleatoria = (rand()%(LINHAS-2))+1; //entre 1 a 15, exclui 0 e 16
-      int posicaoy_aleatoria = (rand()%(COLUNAS-2))+1; //entre 1 a 46, exclui 0 e 47
+      int posicaoy_aleatoria = (rand()%(COLUNAS-1-2))+1; //entre 1 a 46, exclui 0 e 47, lembrar de considerar \0, por isso o -1
       
       fruta.x = posicaox_aleatoria;
       fruta.y = posicaoy_aleatoria;
