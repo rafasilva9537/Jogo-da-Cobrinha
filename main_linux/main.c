@@ -282,7 +282,7 @@ int main() {
           printf("                        1 - JOGAR NOVAMENTE\n");
           printf("                        0 - MENU PRINCIPAL\n");
           while(1){
-            scanf("%c", &recomecar);
+            scanf("%c%*[^\n]", &recomecar); //%*[^\n] ignora todos o caracteres seguintes que não sejam \n, impedir que buffer fique cheio
             getchar();
             if(recomecar == '1' || recomecar == '0' || recomecar == 'q'){
               break;  
