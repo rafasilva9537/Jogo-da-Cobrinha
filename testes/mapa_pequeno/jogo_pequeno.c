@@ -32,7 +32,7 @@ int main() {
   char mapa[LINHAS][COLUNAS];
 
 
-  strcpy(mapa[0],  ":==============================================:");           
+  strcpy(mapa[0],  "|==============================================|");           
   strcpy(mapa[1],  "|..............................................|");
   strcpy(mapa[2],  "|..............................................|");
   strcpy(mapa[3],  "|..............................................|");
@@ -48,7 +48,7 @@ int main() {
   strcpy(mapa[13], "|..............................................|");
   strcpy(mapa[14], "|..............................................|");
   strcpy(mapa[15], "|..............................................|");
-  strcpy(mapa[16], ":==============================================:");           
+  strcpy(mapa[16], "|==============================================|");           
 
   
   //fruta
@@ -153,8 +153,8 @@ int main() {
     //comer fruta 
     if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
       srand(time(0));
-      int posicaox_aleatoria = (rand()%(LINHAS-2))+1; //entre 1 a 15, exclui 0 e 16
-      int posicaoy_aleatoria = (rand()%(COLUNAS-2))+1; //entre 1 a 46, exclui 0 e 47
+      int posicaox_aleatoria = (rand()%15)+1; //entre 1 a 15, exclui 0 e 16
+      int posicaoy_aleatoria = (rand()%46)+1; //entre 1 a 46, exclui 0 e 47
       
       fruta.x = posicaox_aleatoria;
       fruta.y = posicaoy_aleatoria;
