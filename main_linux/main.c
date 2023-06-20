@@ -86,8 +86,8 @@ int main() {
     switch (opcao){
       // jogo inicia aqui
       case 1:{
-        int recomecar = 1;
-        while(recomecar){
+        char recomecar = '1'; //precisa ser caractere, para considerar q
+        while(recomecar == '1'){
           printf("\033[1;1H\033[2J"); //limpar tela. Mais rápido que system("clear")
   
           #define LINHAS 17
@@ -267,17 +267,30 @@ int main() {
         
             usleep(95000); //velocidade do jogo
           } while(1);
-        
+
           //Desativas raw mode. Aplica atributos originais do terminal
           tcsetattr(STDIN_FILENO, TCSAFLUSH, &terminal_original);
           printf(V"                            Fim de jogo!"E" \n\n");
           printf(" \n");
           printf("\033[?25h"); //mostrar cursor do terminal
 
+          //precisa usar duas vezes para sair dos dois loops
+          if(tecla == 'q'){
+              break;
+            }
+          
           printf("                        1 - JOGAR NOVAMENTE\n");
           printf("                        0 - MENU PRINCIPAL\n");
-          scanf("%d", &recomecar);
-          getchar();
+          while(1){
+            scanf("%c", &recomecar);
+            getchar();
+            if(recomecar == '1' || recomecar == '0' || recomecar == 'q'){
+              break;  
+            }
+            else{
+              continue;
+            }
+          }
         }
       }
       
