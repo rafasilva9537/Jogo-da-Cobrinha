@@ -164,11 +164,12 @@ int main() {
             printf("\033[?25l"); //esconder cursor do terminal
         
             //imprimir mapa
-            printf(" "V"Clique 'q' para sair "E" \n\n");
-            printf("\033[1m              Pontuação: %d "E" \n\n", pontuacao);
+            printf(" "V"          Clique 'q' para sair "E" \n\n");
+            printf("\033[1m                        Pontuação: %d "E" \n\n", pontuacao);
             for(int i = 0; i < LINHAS; i++) {
               //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
               printf("\033[K");
+              printf("          ");
               for(int j = 0; j < COLUNAS; j++) {
                 if(mapa[i][j] == '@' || mapa[i][j] == 'X'){
                   printf(""G"%c"E"", mapa[i][j]);
@@ -247,7 +248,7 @@ int main() {
             //colisão com parede (precisa estar antes de definir corpo)
             if(mapa[cobra[0].x][cobra[0].y]== '=' || mapa[cobra[0].x][cobra[0].y]=='|'){ 
               printf(" \n");
-              printf(B "           Você colidiu com a parede! "E" \n");
+              printf(B "                     Você colidiu com a parede! "E" \n");
               break;
             } 
             
@@ -260,7 +261,7 @@ int main() {
         
             //colisão com próprio corpo (precisar estar depois de definir corpo)
             if(mapa[cobra[0].x][cobra[0].y]=='X'){
-              printf("       Você colidiu com o próprio corpo!\n");
+              printf("                 Você colidiu com o próprio corpo!\n");
               break;
             } 
         
@@ -269,12 +270,12 @@ int main() {
         
           //Desativas raw mode. Aplica atributos originais do terminal
           tcsetattr(STDIN_FILENO, TCSAFLUSH, &terminal_original);
-          printf(V"                  Fim de jogo!"E" \n\n");
+          printf(V"                            Fim de jogo!"E" \n\n");
           printf(" \n");
           printf("\033[?25h"); //mostrar cursor do terminal
 
-          printf("              1 - JOGAR NOVAMENTE\n");
-          printf("              0 - MENU PRINCIPAL\n");
+          printf("                        1 - JOGAR NOVAMENTE\n");
+          printf("                        0 - MENU PRINCIPAL\n");
           scanf("%d", &recomecar);
           getchar();
         }
