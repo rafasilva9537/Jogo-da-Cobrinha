@@ -27,7 +27,8 @@ struct termios terminal_original;
 
 int main() {
   system("clear");
-  
+
+  int pontuacao = 0;
   //criando mapa
   char mapa[LINHAS][COLUNAS];
 
@@ -88,7 +89,8 @@ int main() {
     printf("\033[?25l"); //esconder cursor do terminal
 
     //imprimir mapa
-    printf(" "V"     Clique 'q' para sair "E" \n\n");
+    printf(" "V"Clique 'q' para sair "E" \n\n");
+    printf("\033[1m              Pontuação: %d "E" \n\n", pontuacao);
     for(int i = 0; i < LINHAS; i++) {
       //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
       printf("\033[K");
@@ -160,6 +162,7 @@ int main() {
       fruta.y = posicaoy_aleatoria;
 
       tamanho_atual++;
+      pontuacao += 50;
 
       //evitar que corpo novo fique com posicao (0,0)
       cobra[tamanho_atual].x = cobra[tamanho_atual-1].x;
