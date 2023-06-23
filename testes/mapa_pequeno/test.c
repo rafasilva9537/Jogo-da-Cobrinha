@@ -88,12 +88,13 @@ int main() {
       // jogo inicia aqui
       case 1:{
         char recomecar = '1'; //precisa ser caractere, para considerar 'q'
+        int fruta_colidiu = 0;
         while(recomecar == '1'){
           printf("\033[1;1H\033[2J"); //limpar tela. Mais rápido que system("clear")
   
-          #define LINHAS 17
-          #define COLUNAS 48+1
-          #define TAMANHO 690
+          #define LINHAS 10
+          #define COLUNAS 28+1
+          #define TAMANHO 208
           
           struct posicao {
             int x;
@@ -109,23 +110,16 @@ int main() {
           
           //criando mapa
           char mapa[LINHAS][COLUNAS];
-          strcpy(mapa[0],  ":==============================================:");
-          strcpy(mapa[1],  "|..............................................|");
-          strcpy(mapa[2],  "|..............................................|");
-          strcpy(mapa[3],  "|..............................................|");
-          strcpy(mapa[4],  "|..............................................|");
-          strcpy(mapa[5],  "|..............................................|");
-          strcpy(mapa[6],  "|..............................................|");
-          strcpy(mapa[7],  "|..............................................|");
-          strcpy(mapa[8],  "|..............................................|");
-          strcpy(mapa[9],  "|..............................................|");
-          strcpy(mapa[10], "|..............................................|");
-          strcpy(mapa[11], "|..............................................|");
-          strcpy(mapa[12], "|..............................................|");
-          strcpy(mapa[13], "|..............................................|");
-          strcpy(mapa[14], "|..............................................|");
-          strcpy(mapa[15], "|..............................................|");
-          strcpy(mapa[16], ":==============================================:");
+          strcpy(mapa[0],  ":==========================:");
+          strcpy(mapa[1],  "|..........................|");
+          strcpy(mapa[2],  "|..........................|");
+          strcpy(mapa[3],  "|..........................|");
+          strcpy(mapa[4],  "|..........................|");
+          strcpy(mapa[5],  "|..........................|");
+          strcpy(mapa[6],  "|..........................|");
+          strcpy(mapa[7],  "|..........................|");
+          strcpy(mapa[8],  "|..........................|");
+          strcpy(mapa[9],  ":==========================:");
         
           
           //fruta
@@ -184,6 +178,7 @@ int main() {
               }
               printf("\n");
             }
+            printf("\n\n FRUTA COLIDIU COM CORPO: %d", fruta_colidiu);
         
             char tecla_anterior = tecla;
             read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
@@ -231,7 +226,7 @@ int main() {
                 cobra[0].y++;
                 break;
             }
-      
+            //fruta ficava aqui
         
             //colisão com parede (precisa estar antes de definir corpo)
             if(mapa[cobra[0].x][cobra[0].y]== '=' || mapa[cobra[0].x][cobra[0].y]=='|'){ 
@@ -247,8 +242,8 @@ int main() {
               mapa[cobra[i].x][cobra[i].y] = 'X';
             }
 
-            //comer fruta 
-            if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
+            //comer fruta cobra[0].x == fruta.x && cobra[0].y == fruta.y
+            if(1){
               int mudar_numero = -99;
               do{
                 mudar_numero += 99;
@@ -265,7 +260,10 @@ int main() {
                 //evitar que corpo novo fique com posicao (0,0)
                 cobra[tamanho_atual].x = cobra[tamanho_atual-1].x;
                 cobra[tamanho_atual].y = cobra[tamanho_atual-1].y;
-                } while(mapa[fruta.x][fruta.y] == 'X' || mapa[fruta.x][fruta.y] == '@');
+                if(mapa[fruta.x][fruta.y] == 'X'){
+                  fruta_colidiu++;
+                }
+                } while(mapa[fruta.x][fruta.y] == 'X');
               }
             
             //colisão com próprio corpo (precisar estar depois de definir corpo)
@@ -274,7 +272,7 @@ int main() {
               break;
             } 
         
-            usleep(95000); //velocidade do jogo
+            usleep(500000); //velocidade do jogo
           } while(1);
 
           //Desativas raw mode. Aplica atributos originais do terminal
