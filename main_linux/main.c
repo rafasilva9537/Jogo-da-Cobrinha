@@ -11,6 +11,7 @@
 #define Y "\x1b[33m"
 #define V "\x1b[31m"
 #define B "\x1b[34m"
+#define P "\x1b[35m"
 #define E "\x1b[0m"
 
 
@@ -86,7 +87,7 @@ int main() {
     switch (opcao){
       // jogo inicia aqui
       case 1:{
-        char recomecar = '1'; //precisa ser caractere, para considerar q
+        char recomecar = '1'; //precisa ser caractere, para considerar 'q'
         while(recomecar == '1'){
           printf("\033[1;1H\033[2J"); //limpar tela. Mais rápido que system("clear")
   
@@ -174,6 +175,9 @@ int main() {
                 if(mapa[i][j] == '@' || mapa[i][j] == 'X'){
                   printf(""G"%c"E"", mapa[i][j]);
                 }
+                else if(mapa[i][j] == '*'){
+                  printf(""P"%c"E"", mapa[i][j]);
+                }
                 else{
                   printf("%c", mapa[i][j]);
                 }
@@ -227,23 +231,7 @@ int main() {
                 cobra[0].y++;
                 break;
             }
-            
-            //comer fruta 
-            if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
-              srand(time(0));
-              int posicaox_aleatoria = (rand()%(LINHAS-2))+1; //entre 1 a 15, exclui 0 e 16
-              int posicaoy_aleatoria = (rand()%(COLUNAS-1-2))+1; //entre 1 a 46, exclui 0 e 47, lembrar de considerar \0, por isso o -1
-              
-              fruta.x = posicaox_aleatoria;
-              fruta.y = posicaoy_aleatoria;
-        
-              tamanho_atual++;
-              pontuacao += 50;
-        
-              //evitar que corpo novo fique com posicao (0,0)
-              cobra[tamanho_atual].x = cobra[tamanho_atual-1].x;
-              cobra[tamanho_atual].y = cobra[tamanho_atual-1].y;
-            }
+      
         
             //colisão com parede (precisa estar antes de definir corpo)
             if(mapa[cobra[0].x][cobra[0].y]== '=' || mapa[cobra[0].x][cobra[0].y]=='|'){ 
@@ -258,7 +246,28 @@ int main() {
             for(int i = tamanho_atual; i > 0; i--){
               mapa[cobra[i].x][cobra[i].y] = 'X';
             }
-        
+
+            //comer fruta 
+            if(cobra[0].x == fruta.x && cobra[0].y == fruta.y){
+              int mudar_numero = -99;
+              do{
+                mudar_numero += 99;
+                srand(time(0)+mudar_numero);
+                int posicaox_aleatoria = (rand()%(LINHAS-2))+1; //entre 1 a 15, exclui 0 e 16
+                int posicaoy_aleatoria = (rand()%(COLUNAS-1-2))+1; //entre 1 a 46, exclui 0 e 47, lembrar de considerar \0, por isso o -1
+                
+                fruta.x = posicaox_aleatoria;
+                fruta.y = posicaoy_aleatoria;
+          
+                tamanho_atual++;
+                pontuacao += 50;
+          
+                //evitar que corpo novo fique com posicao (0,0)
+                cobra[tamanho_atual].x = cobra[tamanho_atual-1].x;
+                cobra[tamanho_atual].y = cobra[tamanho_atual-1].y;
+                } while(mapa[fruta.x][fruta.y] == 'X');
+              }
+            
             //colisão com próprio corpo (precisar estar depois de definir corpo)
             if(mapa[cobra[0].x][cobra[0].y]=='X'){
               printf("                 Você colidiu com o próprio corpo!\n");
