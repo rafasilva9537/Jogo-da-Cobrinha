@@ -18,13 +18,14 @@
 int main() {
   while (1) {
     system("clear");
-    printf(V "Ajuste seu terminal deixando o titulo abaixo centralizado aos lados! :) " E "\n");
+    printf("                                                                 \n");
+    printf(V"  ⇦ Ajuste seu terminal deixando o titulo abaixo centralizado aos lados! :) ⇨"  E"\n");
         printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
                  "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
 
     usleep(55000);
-        printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
-                 "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
+        printf(G "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
+                 "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█" E "\n");
         usleep(60000);
         printf(G "█                                                                "
                  "               █" E "\n");
@@ -53,35 +54,42 @@ int main() {
         printf(G "█                                                                "
                  "               █" E "\n");
         usleep(30000);
-        printf(G "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"
-                 "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀" E "\n");
-        printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
-                 "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
-    
+        printf(G "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"
+                 "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█" E "\n");
+        printf(B "                              v1.0 early 'C' Edition!"E"\n");
+        printf(G "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
+                 "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█" E "\n");
+        
         printf("                                                                   "
                "          \n");
     
+        printf("                                                                   "
+               "          \n");
         printf("                                                                   "
                "          \n");
 
         usleep(155000); 
-        printf(Y"                                1 - Novo jogo                "E"    \n");
+        printf(Y"                                 1 - Novo jogo      ▶            "E"    \n");
+        printf("                                                                 \n");
         usleep(155000);
         printf("                                                                 \n");
         usleep(155000);
-        printf(Y"                                2 - Como Jogar               "E"   \n");
+        printf(Y"                                 2 - Como Jogar     ?            "E"   \n");
+        printf("                                                                 \n");
         usleep(155000);
         printf("                                                                 \n");     
         usleep(155000);
-        printf(Y"                                3 - Creditos                 "E"    \n");
+        printf(Y"                                 3 - Creditos       ☰               "E"    \n");
+        printf("                                                                 \n");
         usleep(155000);
         printf("                                                                 \n");
         usleep(155000);
-        printf(V"                                0 - Sair do jogo             "E"    \n");
-
+        printf(V"                                 0 - Sair do jogo   ⍇            "E"    \n");
+        printf("                                                                 \n");
+  
       
     int opcao = -1;
-    scanf("%i", &opcao);
+    scanf("%i%*[^\n]", &opcao);
     getchar();
     
     switch (opcao){
@@ -163,10 +171,12 @@ int main() {
           do {
             printf("\033[1;1H"); //move o cursor do terminal para linha 1, coluna 1
             printf("\033[?25l"); //esconder cursor do terminal
-        
+
+            
             //imprimir mapa
-            printf(" "V"          Clique 'q' para sair "E" \n\n");
-            printf("\033[1m                        Pontuação: %d "E" \n\n", pontuacao);
+            printf("                                         \n");
+            printf(" "V"                     Clique 'Q' para sair "E" \n\n");
+            printf(Y "\033[1m                          Pontuação: %d  \n"E"\n", pontuacao);
             for(int i = 0; i < LINHAS; i++) {
               //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
               printf("\033[K");
@@ -236,7 +246,7 @@ int main() {
             //colisão com parede (precisa estar antes de definir corpo)
             if(mapa[cobra[0].x][cobra[0].y]== '=' || mapa[cobra[0].x][cobra[0].y]=='|'){ 
               printf(" \n");
-              printf(B "                     Você colidiu com a parede! "E" \n");
+              printf(B "                     Você colidiu com a parede! :( "E" \n");
               break;
             } 
             
@@ -270,7 +280,7 @@ int main() {
             
             //colisão com próprio corpo (precisar estar depois de definir corpo)
             if(mapa[cobra[0].x][cobra[0].y]=='X'){
-              printf("                 Você colidiu com o próprio corpo!\n");
+              printf(V"                 Você colidiu com o próprio corpo! :("  V "\n");
               break;
             } 
         
@@ -279,7 +289,7 @@ int main() {
 
           //Desativas raw mode. Aplica atributos originais do terminal
           tcsetattr(STDIN_FILENO, TCSAFLUSH, &terminal_original);
-          printf(V"                            Fim de jogo!"E" \n\n");
+          printf(V"                            Fim de jogo! "E" \n\n");
           printf(" \n");
           printf("\033[?25h"); //mostrar cursor do terminal
 
@@ -288,8 +298,10 @@ int main() {
               break;
             }
           
-          printf("                        1 - JOGAR NOVAMENTE\n");
-          printf("                        0 - MENU PRINCIPAL\n");
+          printf("                                         \n");
+          printf(G"                          1 - JOGAR NOVAMENTE ↺  "E "\n");
+          printf("                                         \n");
+          printf(V"                          0 - MENU PRINCIPAL  ⍇ "E "\n");
           while(1){
             scanf("%c%*[^\n]", &recomecar); //%*[^\n] ignora todos o caracteres seguintes que não sejam \n, impedir que buffer fique cheio
             getchar();
@@ -312,18 +324,21 @@ int main() {
         while (1) {
           system("clear");
           printf("                                                                 \n");
-          usleep(155000);
-          printf(Y"                                   1 - Controles                    "E"  \n");          
+          printf(Y"                                 Como Jogar ?              "E"\n");
+          printf("                                                                 \n");
           printf("                                                                 \n");
           usleep(155000);
-          printf(Y"                                   2 - Regras                       "E"  \n");
+          printf(Y"                              1 - Controles  ⌨                 "E"  \n");        
           printf("                                                                 \n");
           usleep(155000);
-          printf(V"                                   0 - Voltar                       "E"  \n");
+          printf(Y"                              2 - Regras     ☰                  "E"  \n");
+          printf("                                                                 \n");
+          usleep(155000);
+          printf(V"                              0 - Voltar     ⍇                  "E"  \n");
           printf("                                                                 \n");
           
           int opcao = -1;
-          scanf("%i", &opcao);
+          scanf("%i%*[^\n]", &opcao);
           getchar();
           if (opcao == 0) break;
   
@@ -335,24 +350,24 @@ int main() {
           case 1:
             system("clear");
               printf("\n");
-              printf(Y"                               Controles                     "E"   \n");
+              printf(Y"                             Controles ⌨                 "E"   \n");
               printf("\n");
               printf("\n");
               usleep(55000);
-              printf(B"                             W - Para cima                   "E"   \n");
+              printf(B"                           W - Para cima        ∆        "E"   \n");
               printf("\n");
               usleep(55000);
-              printf(B"                             S - Para baixo                  "E"   \n");
+              printf(B"                           S - Para baixo       ∇        "E"   \n");
               printf("\n");
               usleep(55000);
-              printf(B"                             D - Para a direita              "E"   \n");
+              printf(B"                           D - Para a direita   ⊳        "E"   \n");
               printf("\n");
               usleep(55000);
-              printf(B"                             A - Para a esquerda             "E"   \n");
+              printf(B"                           A - Para a esquerda  ⊲        "E"   \n");
               printf("\n");
               usleep(55000);
               printf("\n");
-              printf(V"                             0 - Para voltar                 "E"     \n");
+              printf(V"                           0 - Para voltar      ⍇        "E"   \n");
               getchar();
           break;
   
@@ -361,17 +376,17 @@ int main() {
             
           case 2:
             system("clear");
-              printf(Y"                              Regras                        "E"    \n");
+              printf(Y"                             Regras ☰                                 "E"\n");
               printf("\n");
-  printf(B"1º para começar, basta movimentar em uma das teclas para a cobrinha se movimentar."E"\n");
+  printf(B"1º para começar, basta movimentar em uma das teclas para a cobrinha se movimentar. "E"\n");
             printf("\n");
-  printf(B"2º evite bater nas bordas do mapa e no próprio corpo."E"\n");
+  printf(B"2º evite bater nas bordas do mapa e no próprio corpo.                              "E"\n");
             printf("\n");
-  printf(B"3º Lembre-se, o movimento da cobra é constante, ela nunca irá parar!"E"\n");
+  printf(B"3º Lembre-se, o movimento da cobra é constante, ela nunca irá parar!               "E"\n");
             printf("\n");
-  printf(B"4º A sua pontuação aumenta ao longo em que voce vai comendo as frutinhas, ao mesmo tempo o seu corpo aumenta."E"\n");
+  printf(B"4º A sua pontuação aumenta ao longo em que voce vai comendo as frutinhas, ao mesmo tempo o seu corpo aumenta.                                                                                "E"\n");
               printf("\n");
-              printf(V"                         0 - para voltar                   "E"     \n");
+              printf(V"                          0 - para voltar ⍇                          "E"\n");
               printf("\n");
               getchar();
           break;
@@ -392,14 +407,14 @@ int main() {
       while (1) {
       system("clear");
       printf("\n");
-      printf(G "Jogo Snake - versão 1.0 early "E"\n");
-      printf(Y "Language C edition! "E"\n");
+      printf(G"                            Jogo Snake - versão 1.0 early "E"\n");
+      printf(Y"                                 Language C edition! "E"\n");
       printf("\n");
-      printf(B "Feito por Davi e Rafael "E"\n");
+      printf(B "                              Feito por Rafael e Davi "E"\n");
       printf("\n");
-      printf(V"0 - para voltar "E"\n");
+      printf(V "                                 0 - para voltar ⍇ "E"\n");
       int opcao = -1;
-      scanf("%i", &opcao);
+      scanf("%i%*[^\n]", &opcao);
       getchar();
       if (opcao == 0) break;
       }
