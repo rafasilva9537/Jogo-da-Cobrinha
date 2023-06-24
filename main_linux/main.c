@@ -176,7 +176,7 @@ int main() {
             //imprimir mapa
             printf("                                         \n");
             printf(" "V"                     Clique 'Q' para sair "E" \n\n");
-            printf(Y "\033[1m                          Pontuação: %d  \n"E"\n", pontuacao);
+            printf(Y "\033[1m                         Pontuação: %d  \n"E"\n", pontuacao);
             for(int i = 0; i < LINHAS; i++) {
               //apagar linha atual(1), usado no lugar no system("clear") para que o jogo não oscile
               printf("\033[K");
