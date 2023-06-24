@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <termios.h>
 #include <time.h>
+#include <ctype.h>
 
 #define G "\x1b[32m" 
 #define Y "\x1b[33m"
@@ -184,9 +185,10 @@ int main() {
               }
               printf("\n");
             }
-        
+            
             char tecla_anterior = tecla;
             read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
+            tecla = tolower(tecla);
         
             //sair do jogo
             if(tecla == 'q'){
@@ -293,6 +295,7 @@ int main() {
           while(1){
             scanf("%c%*[^\n]", &recomecar); //%*[^\n] ignora todos o caracteres seguintes que não sejam \n, impedir que buffer fique cheio
             getchar();
+            recomecar = tolower(recomecar);
             if(recomecar == '1' || recomecar == '0' || recomecar == 'q'){
               break;  
             }
