@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <termios.h>
 #include <time.h>
+#include <ctype.h>  
 
 #define G "\x1b[32m" 
 #define Y "\x1b[33m"
@@ -69,22 +70,22 @@ int main() {
                "          \n");
 
         usleep(155000); 
-        printf(Y"                                 1 - Novo jogo      ▶            "E"    \n");
+        printf(Y"                               1 - Novo jogo      ▶            "E"    \n");
         printf("                                                                 \n");
         usleep(155000);
         printf("                                                                 \n");
         usleep(155000);
-        printf(Y"                                 2 - Como Jogar     ?            "E"   \n");
+        printf(Y"                               2 - Como Jogar     ?            "E"   \n");
         printf("                                                                 \n");
         usleep(155000);
         printf("                                                                 \n");     
         usleep(155000);
-        printf(Y"                                 3 - Creditos       ☰               "E"    \n");
+        printf(Y"                               3 - Creditos       ☰               "E"    \n");
         printf("                                                                 \n");
         usleep(155000);
         printf("                                                                 \n");
         usleep(155000);
-        printf(V"                                 0 - Sair do jogo   ⍇            "E"    \n");
+        printf(V"                               0 - Sair do jogo   ⍇            "E"    \n");
         printf("                                                                 \n");
   
       
@@ -197,7 +198,8 @@ int main() {
         
             char tecla_anterior = tecla;
             read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
-        
+            tecla = tolower(tecla);
+            
             //sair do jogo
             if(tecla == 'q'){
               break;
@@ -305,6 +307,7 @@ int main() {
           while(1){
             scanf("%c%*[^\n]", &recomecar); //%*[^\n] ignora todos o caracteres seguintes que não sejam \n, impedir que buffer fique cheio
             getchar();
+            recomecar = tolower(recomecar);
             if(recomecar == '1' || recomecar == '0' || recomecar == 'q'){
               break;  
             }
@@ -324,17 +327,17 @@ int main() {
         while (1) {
           system("clear");
           printf("                                                                 \n");
-          printf(Y"                                 Como Jogar ?              "E"\n");
+          printf(Y"                                Como Jogar ?                    "E"\n");
           printf("                                                                 \n");
           printf("                                                                 \n");
           usleep(155000);
-          printf(Y"                              1 - Controles  ⌨                 "E"  \n");        
+          printf(Y"                              1 - Controles  ⌨                 "E"\n");        
           printf("                                                                 \n");
           usleep(155000);
-          printf(Y"                              2 - Regras     ☰                  "E"  \n");
+          printf(Y"                              2 - Regras     ☰                  "E"\n");
           printf("                                                                 \n");
           usleep(155000);
-          printf(V"                              0 - Voltar     ⍇                  "E"  \n");
+          printf(V"                              0 - Voltar     ⍇                  "E"\n");
           printf("                                                                 \n");
           
           int opcao = -1;
@@ -350,7 +353,7 @@ int main() {
           case 1:
             system("clear");
               printf("\n");
-              printf(Y"                             Controles ⌨                 "E"   \n");
+              printf(Y"                             Controles  ⌨               "E"   \n");
               printf("\n");
               printf("\n");
               usleep(55000);
