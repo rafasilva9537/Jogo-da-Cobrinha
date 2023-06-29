@@ -351,7 +351,8 @@ int main() {
           
           switch (opcao) {
           case 1:
-            system("clear");
+            while(1){
+              system("clear");
               printf("\n");
               printf(Y"                             Controles  ⌨               "E"   \n");
               printf("\n");
@@ -371,14 +372,21 @@ int main() {
               usleep(55000);
               printf("\n");
               printf(V"                           0 - Para voltar      ⍇        "E"   \n");
-              getchar();
+              int opcao = -1;
+          scanf("%i%*[^\n]", &opcao);
+          getchar();
+          if (opcao == 0) break;
+              
+            }
+            
           break;
   
   
   
             
           case 2:
-            system("clear");
+            while(1){
+              system("clear");
               printf(Y"                             Regras ☰                                 "E"\n");
               printf("\n");
   printf(B"1º para começar, basta movimentar em uma das teclas para a cobrinha se movimentar. "E"\n");
@@ -391,7 +399,13 @@ int main() {
               printf("\n");
               printf(V"                          0 - para voltar ⍇                          "E"\n");
               printf("\n");
-              getchar();
+          int opcao = -1;
+          scanf("%i%*[^\n]", &opcao);
+          getchar();
+          if (opcao == 0) break;
+              
+            }
+            
           break;
           }
         }     
