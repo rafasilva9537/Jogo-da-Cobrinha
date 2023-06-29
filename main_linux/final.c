@@ -91,7 +91,7 @@ int main() {
       
     int opcao = -1;
     scanf("%i%*[^\n]", &opcao);
-    getchar();
+    while(getchar() != '\n');
     
     switch (opcao){
       // jogo inicia aqui
@@ -197,6 +197,7 @@ int main() {
             }
         
             char tecla_anterior = tecla;
+            //fflush(stdin);
             read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
             tecla = tolower(tecla);
             
@@ -306,7 +307,7 @@ int main() {
           printf(V"                          0 - MENU PRINCIPAL  ⍇ "E "\n");
           while(1){
             scanf("%c%*[^\n]", &recomecar); //%*[^\n] ignora todos o caracteres seguintes que não sejam \n, impedir que buffer fique cheio
-            getchar();
+            while(getchar() != '\n');
             recomecar = tolower(recomecar);
             if(recomecar == '1' || recomecar == '0' || recomecar == 'q'){
               break;  
@@ -342,7 +343,7 @@ int main() {
           
           int opcao = -1;
           scanf("%i%*[^\n]", &opcao);
-          getchar();
+          while(getchar() != '\n');
           if (opcao == 0) break;
   
   
@@ -374,7 +375,7 @@ int main() {
               printf(V"                           0 - Para voltar      ⍇        "E"   \n");
               int opcao = -1;
           scanf("%i%*[^\n]", &opcao);
-          getchar();
+          while(getchar() != '\n');
           if (opcao == 0) break;
               
             }
@@ -401,7 +402,7 @@ int main() {
               printf("\n");
           int opcao = -1;
           scanf("%i%*[^\n]", &opcao);
-          getchar();
+          while(getchar() != '\n');
           if (opcao == 0) break;
               
             }
@@ -432,7 +433,7 @@ int main() {
       printf(V "                                 0 - para voltar ⍇ "E"\n");
       int opcao = -1;
       scanf("%i%*[^\n]", &opcao);
-      getchar();
+      while(getchar() != '\n');
       if (opcao == 0) break;
       }
       break;
