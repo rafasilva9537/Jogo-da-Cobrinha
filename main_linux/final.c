@@ -20,7 +20,7 @@ int main() {
   while (1) {
     system("clear");
     printf("                                                                 \n");
-    printf(V"  ⇦ Ajuste seu terminal deixando o titulo abaixo centralizado aos lados! :) ⇨"  E"\n");
+    //printf(V"  ⇦ Ajuste seu terminal deixando o titulo abaixo centralizado aos lados! :) ⇨"  E"\n");
         printf(G "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
                  "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄" E "\n");
 
@@ -168,7 +168,9 @@ int main() {
           tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw); //Aplica atributos modificados da struct raw no terminal. TCSAFLUSH especifica quando aplicar as mudanças
         
           //comando de movimento
+          char texto_lixo[99] = {'d'};
           char tecla = 'd';
+          
           do {
             printf("\033[1;1H"); //move o cursor do terminal para linha 1, coluna 1
             printf("\033[?25l"); //esconder cursor do terminal
@@ -197,8 +199,8 @@ int main() {
             }
         
             char tecla_anterior = tecla;
-            //fflush(stdin);
-            read(STDIN_FILENO, &tecla, 1); //assume a função do scanf
+            read(STDIN_FILENO, texto_lixo, 99); //assume a função do scanf
+            tecla = texto_lixo[0];
             tecla = tolower(tecla);
             
             //sair do jogo
